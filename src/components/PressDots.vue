@@ -2,13 +2,13 @@
     <div class="press-dots-container">
         <div v-if="!isGameActive && bubblesPopped === 0" class="start-screen">
             <h2>Bubble Pop Challenge</h2>
-            <p>Pop all 20 bubbles as fast as you can!</p>
+            <p>Pop all 10 bubbles as fast as you can!</p>
             <button @click="startGame" class="start-button">Start Game</button>
         </div>
 
         <div v-if="isGameActive" class="game-area" ref="gameArea">
             <div class="game-info">
-                <span>Bubbles: {{ bubblesPopped }}/20</span>
+                <span>Bubbles: {{ bubblesPopped }}/10</span>
             </div>
 
             <div v-for="bubble in bubbles" :key="bubble.id" class="bubble" :style="{
@@ -20,7 +20,7 @@
             }" @click="popBubble(bubble.id)"></div>
         </div>
 
-        <div v-if="!isGameActive && bubblesPopped === 20" class="result-screen">
+        <div v-if="!isGameActive && bubblesPopped === 10" class="result-screen">
             <h2>Great job!</h2>
             <p>You popped all bubbles in:</p>
             <div class="score">{{ finalScore }} / 100 points</div>
@@ -112,7 +112,7 @@ export default {
                 this.bubbles.splice(index, 1)
                 this.bubblesPopped++
 
-                if (this.bubblesPopped >= 20) {
+                if (this.bubblesPopped >= 10) {
                     this.endGame()
                 } else {
                     this.spawnBubbles()
@@ -122,12 +122,12 @@ export default {
 
         spawnBubbles() {
             // Make sure we have enough bubbles
-            const remaining = 20 - this.bubblesPopped
+            const remaining = 10 - this.bubblesPopped
             const toCreate = Math.min(this.maxActiveBubbles, remaining) - this.bubbles.length
 
             for (let i = 0; i < toCreate; i++) {
                 setTimeout(() => {
-                    if (this.isGameActive && this.bubblesPopped < 20) {
+                    if (this.isGameActive && this.bubblesPopped < 10) {
                         this.createBubble()
                     }
                 }, Math.random() * 500)
